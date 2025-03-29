@@ -29,7 +29,7 @@ export default function ThreedotPopup() {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="absolute top-10 right-1 z-50 w-36 bg-gray-900 rounded-lg shadow-xl flex flex-col gap-2 p-2"
+        className="absolute top-10 right-1 z-50 w-40 bg-gray-900 rounded-lg shadow-xl flex flex-col gap-2 p-2"
       >
         <li
           className="text-white text-md text-center font-semibold hover:bg-gray-800 rounded p-2 cursor-pointer"
@@ -54,6 +54,12 @@ export default function ThreedotPopup() {
           onClick={() => router.push("/help")}
         >
           Help
+        </li>
+        <li
+          className="text-white text-sm text-center font-semibold hover:bg-gray-800 rounded p-2 cursor-pointer"
+          onClick={() => router.push("/deletedNumbers")}
+        >
+          Deleted Numbers
         </li>
         <li
           className="text-red-500 text-md text-center font-semibold hover:bg-gray-800 rounded p-2 cursor-pointer"

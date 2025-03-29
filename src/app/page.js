@@ -144,7 +144,7 @@ export default function App() {
           </div>
         )}
 
-
+    <h2 className='text-2xl font-bold text-gray-900 mb-4'>How to use ConvoNest</h2>
 <video  className=" w-[80%] m-auto" width="640" height="360" controls muted poster="/thumbnail.jpg">
   <source src="/video.mp4" type="video/mp4" />
   Your browser does not support the video tag.

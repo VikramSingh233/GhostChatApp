@@ -7,9 +7,9 @@ export async function POST(request) {
   await connect();
   try {
     const body = await request.json();
-    const { AllmobileNumbers } = body; // Expecting an array of numbers
+    const { AllmobileNumbers } = body; 
 
-    console.log("Received Mobile Numbers:", AllmobileNumbers);
+    // console.log("Received Mobile Numbers:", AllmobileNumbers);
 
     // Ensure AllmobileNumbers is a valid array
     if (!Array.isArray(AllmobileNumbers) || AllmobileNumbers.length === 0) {

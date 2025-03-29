@@ -15,11 +15,23 @@ const notificationSchema = new mongoose.Schema({
     sendertime:{
         type:Date
     },
+    ProfilePicture:{
+        type:String
+    },
     receivertime:{
         type:Date
     },
     reply:{
         type:String
+    },
+    receivername:{
+        type:String
+    },
+    forAddNumber:{
+        type:Boolean
+    },
+    seen:{
+        type:Boolean
     }
 
 

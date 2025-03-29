@@ -4,15 +4,35 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const SettingOption = ({ onClose, onSave, user }) => {
-  const [name, setName] = useState("");
-  const [saveImage, setSaveImage] = useState(false);
+
+  
   const [isImportant, setIsImportant] = useState(false);
 
   const handleSubmit = () => {
-    onSave({ name, saveImage, isImportant });
+    onSave({ isImportant });
     onClose();
   };
-
+  const downloadImage = async (user) => {
+    try {
+      const response = await fetch(user.ProfilePicture, { mode: "cors" });
+      console.log("response", response);
+      const blob = await response.blob();
+  
+      console.log("blob", blob);
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `${user.Name}_profilePicture.jpg`;
+  
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.error("Failed to download image:", error);
+    }
+  };
+  
   return (
     <AnimatePresence>
       <motion.div
@@ -31,20 +51,11 @@ export const SettingOption = ({ onClose, onSave, user }) => {
           <h3 className="text-xl font-semibold mb-4">Settings</h3>
 
           <div className="space-y-4 mb-6">
-            <div>
-              <label className="block text-sm font-medium mb-1">Change Name</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full p-2 border rounded-lg"
-                placeholder={user}
-              />
-            </div>
+        
 
             <div className="flex items-center justify-around gap-4 text-center font-bold">
               <span>Profile Picture</span>
-              <button className="bg-gray-800 hover:bg-gray-900 h-10 p-1 w-auto px-2">
+              <button onClick={() => downloadImage(user)} className="bg-gray-800 hover:bg-gray-900 h-10 p-1 w-auto px-2">
                 Download
               </button>
             </div>
@@ -56,7 +67,7 @@ export const SettingOption = ({ onClose, onSave, user }) => {
                 onChange={(e) => setIsImportant(e.target.checked)}
                 className="w-4 h-4"
               />
-              <span>Mark {user} Important</span>
+              <span>Mark {user.Name} Important</span>
             </div>
           </div>
 

@@ -8,13 +8,19 @@ connect();
 export async function POST(request) {
   
     const reqBody = await request.json();
-    console.log("req",reqBody);
+    // console.log("req",reqBody);
     const {user, currentUser , data , time} = reqBody;
+    // console.log("User", user, "currentUser" , currentUser , data , time);
+    const receiver = user.MobileNumber;
+    const receivername = user.Name;
+    // console.log(currentUser);
+    const usersender =await  User.findOne({MobileNumber:currentUser});
+    // console.log(usersender);
+    const sender = usersender.Name;
+    const ProfilePicture = usersender.ProfilePicture;
 
-    const sender = user.MobileNumber;
-    const receiver = currentUser;
     const message =data.message.toString() ;
-    console.log(message);
+    // console.log(message);
     
     const parsedDate = new Date(time);
     if (isNaN(parsedDate.getTime())) { 
@@ -24,7 +30,10 @@ export async function POST(request) {
         sender,
         receiver, 
         message,
+        ProfilePicture,
         sendertime:parsedDate,
+        receivername,
+        seen:false
     });
 
     await notification.save();

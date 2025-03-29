@@ -16,15 +16,25 @@ export async function POST(request) {
     const notifications = await Notification.find({
         $or: [{ receiver: MobileNumber }, { sender: user.Name }],
       }).sort({ sendertime: -1 });
+    // console.log("notifications",notifications);
+
+    // from all this notifications, get the ones that are not seen by the user
 
     const unseenNotifications = notifications.filter((notification) => {
         return notification.seen === false;
     });
 
-    const unseenCount = unseenNotifications.length; 
+  
+
+    if (unseenNotifications.length > 0) {
+        await Notification.updateMany(
+            { _id: { $in: unseenNotifications.map((notification) => notification._id) } },
+            { $set: { seen: true } }
+        );
+    }
 
 
-    return NextResponse.json({ notifications , unseenCount }, { status: 200 });
+    return NextResponse.json({ message: "Notifications marked as seen" }, { status: 200 });
     
 
 }

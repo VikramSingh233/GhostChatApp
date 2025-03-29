@@ -10,7 +10,7 @@ export async function POST(request) {
   try {
     const reqBody = await request.json();
     const { MobileNumber, Password } = reqBody;
-    console.log(reqBody)
+    // console.log(reqBody)
     // ✅ Check if all fields are provided
     if (!MobileNumber || !Password) {
       return NextResponse.json({

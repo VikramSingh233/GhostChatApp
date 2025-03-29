@@ -28,10 +28,17 @@ Name: {
         required: true,
         
     }],
+    RecentlyDeletedNumbers:[{
+        type: String,
+        required: true,
+    }],
     ProfilePicture: {
         type: String,
         default: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
     },
+    ImpContacts:[{
+        type: String
+    }],
     ProfilePicturePublicId:{
         type: String
     },

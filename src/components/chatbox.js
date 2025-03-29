@@ -26,6 +26,8 @@ export default function ChatBox({ user , currentUser , handleClick }) {
   const [messagebox, setMessagebox] = useState("");
   const [showmessagebox, setShowMessageBox] = useState(false);
   const router = useRouter();
+
+  
   const handleBlockConfirm = async () => {
     try {
         const response = await axios.post("/api/blockuser", { user, currentUser });
@@ -43,7 +45,6 @@ export default function ChatBox({ user , currentUser , handleClick }) {
  const time = now.toISOString();
   // Poll Option Handlers
   const handlePollSubmit = async(data) => {
-   
  const response =await  axios.post("/api/createpoll", { user, currentUser , data , time });
  setShowMessageBox(true);
     setMessagebox(response.data.message);
@@ -261,7 +262,7 @@ export default function ChatBox({ user , currentUser , handleClick }) {
 
       {/* Settings Popup */}
       {showSetting && (
-        <SettingOption user={user.Name}
+        <SettingOption user={user}
           onSave={handleSettingsSave}
           onClose={() => setShowSetting(false)}
         />
