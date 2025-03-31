@@ -242,15 +242,15 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
     .map((msg, index) => (
       <div
         key={index}
-        className={`flex ${
+        className={`flex max-w-[90%] ${
           msg.sender === user.MobileNumber ? "justify-start" : "justify-end"
         }`}
       >
         <div
-          className={`text-sm px-3 py-2 flex rounded-xl w-fit max-w-[75%] md:max-w-[60%] ${
+          className={`text-sm px-3 py-2 flex rounded-xl  ${
             msg.sender === user.MobileNumber
-              ? "bg-white text-gray-900 border border-gray-300"
-              : "bg-gray-700 text-white"
+              ? "bg-white text-gray-900 border border-gray-300 max-w-[60%] md:max-w-[50%] md:w-fit"
+              : "bg-gray-700 text-white max-w-[60%] md:max-w-[50%] md:w-fit"
           }`}
         >
           {msg.text.match(/\.(jpeg|jpg|gif|png|webp)$/) ? (
@@ -264,7 +264,7 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
               />
             </div>
           ) : (
-            <p className="break-words w-full">{msg.text}</p>
+            <p className="whitespace-pre-wrap break-words ">{msg.text}</p>
           )}
         </div>
       </div>
