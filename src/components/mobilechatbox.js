@@ -241,7 +241,7 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
             key={index}
             className={`flex ${msg.sender === user.MobileNumber ? "justify-start" : "justify-end"}`}
           >
-            <div className={`text-sm px-3 py-1 flex justify-center items-center rounded-xl max-w-[85%] ${
+            <div className={`text-sm px-3 py-1 flex flex-col  rounded-xl max-w-[85%] ${
               msg.sender === user.MobileNumber 
                 ? "bg-white text-gray-900 border border-gray-300"
                 : "bg-gray-700 text-white"
@@ -257,14 +257,9 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
                   />
                 </div>
               ) : (
-                <p className="break-words max-w-[50vw] flex flex-wrap">{msg.text}</p>
+                <p className="break-words max-w-[80%] flex flex-col">{msg.text}</p>
               )}
-              {/* <p className="text-xs mt-1 opacity-70">
-                {new Date(msg.timestamp).toLocaleTimeString([], { 
-                  hour: '2-digit', 
-                  minute: '2-digit' 
-                })}
-              </p> */}
+            
             </div>
           </div>
         ))}
