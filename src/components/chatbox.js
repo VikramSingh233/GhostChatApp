@@ -362,9 +362,9 @@ export default function ChatBox({ user, currentUser, handleClick ,conversationme
           .map((msg, index) => (
             <div
               key={index}
-              className={`flex ${msg.sender === user.MobileNumber ? "justify-start" : "justify-end"}`}
+              className={`flex max-w-[100%] ${msg.sender === user.MobileNumber ? "justify-start" : "justify-end"}`}
             >
-              <div className={` text-white px-4 py-2 rounded-lg max-w-md ${msg.sender === user.MobileNumber ? "bg-cyan-600" : "bg-gray-800"}`}>
+              <div className={` px-4 py-2 rounded-lg w-fit  max-w-[70%]  flex-wrap ${msg.sender === user.MobileNumber ? "bg-white text-black" : " text-white bg-gray-800"}`}>
                 <strong>{msg.receiver === user.MobileNumber ? " " : " "}</strong> {msg.text.match(/\.(jpeg|jpg|gif|png|webp)$/) ? (
                   <Image
                     onClick={() => handleImageClick(msg.text)}
@@ -372,11 +372,11 @@ export default function ChatBox({ user, currentUser, handleClick ,conversationme
                     alt="Sent Image"
                     width={200} // Set a reasonable size
                     height={200}
-                    className="rounded-lg shadow-md"
+                    className="rounded-lg max-w-full shadow-md active:opacity-75"
                   />
                   
                 ) : (
-                  msg.text
+                  <p className="whitespace-pre-wrap break-words break-all ">{msg.text}</p>
                 )}
               </div>
             </div>

@@ -249,7 +249,7 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
         <div
           className={`text-sm px-3 py-2 flex rounded-xl  ${
             msg.sender === user.MobileNumber
-              ? "bg-white text-gray-900 border border-gray-300w-fit  max-w-[70%]  flex-wrap"
+              ? "bg-white text-gray-900 border border-gray-300 w-fit  max-w-[70%]  flex-wrap"
               : "bg-gray-700 text-white max-w-[70%] flex-wrap flex-row justify-start items-center "
           }`}
         >
