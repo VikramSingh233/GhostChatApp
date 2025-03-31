@@ -119,40 +119,50 @@ export default function ChatBox({ user, currentUser, handleClick ,conversationme
     }
   };
 
-  const SOCKET_SERVER_URL = "websocketserver-production-60c7.up.railway.app";
+
+  const SOCKET_SERVER_URL = "https://websocketserver-production-60c7.up.railway.app";
 
   useEffect(() => {
     if (!socketRef.current) {
+      let isMounted = true; // ✅ Prevent duplicate execution
+  
       fetch("/api/socket").then(() => {
+        if (!isMounted) return;
+  
         const newSocket = io(SOCKET_SERVER_URL, {
           transports: ["websocket"],
           reconnection: true,
           reconnectionAttempts: 5,
           reconnectionDelay: 1000,
         });
-
+  
         socketRef.current = newSocket;
-
+  
         newSocket.on("connect", () => {
-          console.log("✅ Connected to server:", newSocket.id);
+          console.log("✅ Connected:", newSocket.id);
         });
-
+  
         newSocket.on("receiveMessage", (msg) => {
           console.log("📩 Received:", msg);
           setMessages((prev) => [...prev, msg]);
         });
-
+  
         newSocket.on("disconnect", () => {
           console.log("❌ Disconnected, trying to reconnect...");
         });
-
-        return () => {
-          newSocket.disconnect();
-          socketRef.current = null;
-        };
+  
       });
+  
+      return () => {
+        isMounted = false; // ✅ Fix double execution
+        if (socketRef.current) {
+          socketRef.current.disconnect();
+          socketRef.current = null;
+        }
+      };
     }
   }, []);
+  
   const sendMessage = async () => {
     if (!socketRef.current || !socketRef.current.connected) {
       console.error(" Cannot send message, socket is disconnected.");
@@ -354,7 +364,7 @@ export default function ChatBox({ user, currentUser, handleClick ,conversationme
               key={index}
               className={`flex ${msg.sender === user.MobileNumber ? "justify-start" : "justify-end"}`}
             >
-              <div className={` text-white px-4 py-2 rounded-lg max-w-xs ${msg.sender === user.MobileNumber ? "bg-cyan-600" : "bg-gray-800"}`}>
+              <div className={` text-white px-4 py-2 rounded-lg max-w-md ${msg.sender === user.MobileNumber ? "bg-cyan-600" : "bg-gray-800"}`}>
                 <strong>{msg.receiver === user.MobileNumber ? " " : " "}</strong> {msg.text.match(/\.(jpeg|jpg|gif|png|webp)$/) ? (
                   <Image
                     onClick={() => handleImageClick(msg.text)}

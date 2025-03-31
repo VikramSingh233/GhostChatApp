@@ -95,39 +95,49 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
 
     }
   };
-  const SOCKET_SERVER_URL = "websocketserver-production-60c7.up.railway.app";
+  const SOCKET_SERVER_URL = "https://websocketserver-production-60c7.up.railway.app";
+
   useEffect(() => {
     if (!socketRef.current) {
+      let isMounted = true; // ✅ Prevent duplicate execution
+  
       fetch("/api/socket").then(() => {
+        if (!isMounted) return;
+  
         const newSocket = io(SOCKET_SERVER_URL, {
           transports: ["websocket"],
           reconnection: true,
           reconnectionAttempts: 5,
           reconnectionDelay: 1000,
         });
-
+  
         socketRef.current = newSocket;
-
+  
         newSocket.on("connect", () => {
-          console.log("✅ Connected to server through Mobile:", newSocket.id);
+          console.log("✅ Connected:", newSocket.id);
         });
-
+  
         newSocket.on("receiveMessage", (msg) => {
           console.log("📩 Received:", msg);
           setMessages((prev) => [...prev, msg]);
         });
-
+  
         newSocket.on("disconnect", () => {
           console.log("❌ Disconnected, trying to reconnect...");
         });
-
-        return () => {
-          newSocket.disconnect();
-          socketRef.current = null;
-        };
+  
       });
+  
+      return () => {
+        isMounted = false; // ✅ Fix double execution
+        if (socketRef.current) {
+          socketRef.current.disconnect();
+          socketRef.current = null;
+        }
+      };
     }
   }, []);
+  
 
   const sendMessage = async () => {
     if (!socketRef.current || !socketRef.current.connected) {
@@ -231,13 +241,13 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
             key={index}
             className={`flex ${msg.sender === user.MobileNumber ? "justify-start" : "justify-end"}`}
           >
-            <div className={`text-sm px-3 py-1 rounded-xl max-w-[85%] ${
+            <div className={`text-sm px-3 py-1 flex justify-center items-center rounded-xl max-w-[85%] ${
               msg.sender === user.MobileNumber 
                 ? "bg-white text-gray-900 border border-gray-300"
-                : "bg-blue-600 text-white"
+                : "bg-gray-700 text-white"
             }`}>
               {msg.text.match(/\.(jpeg|jpg|gif|png|webp)$/) ? (
-                <div className="relative w-40 h-40">
+                <div className="relative max-w-[50vw] max-h-[50vh]">
                   <Image
                     onClick={() => handleImageClick(msg.text)}
                     src={msg.text}
@@ -247,7 +257,7 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
                   />
                 </div>
               ) : (
-                <p className="break-words">{msg.text}</p>
+                <p className="break-words max-w-[50vw] flex flex-wrap">{msg.text}</p>
               )}
               {/* <p className="text-xs mt-1 opacity-70">
                 {new Date(msg.timestamp).toLocaleTimeString([], { 
