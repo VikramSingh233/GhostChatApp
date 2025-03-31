@@ -233,37 +233,44 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
 
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto p-2 bg-gray-100 space-y-2">
-        {messages.filter(msg => 
-          (msg.sender === currentUser && msg.receiver === user.MobileNumber) ||
-          (msg.sender === user.MobileNumber && msg.receiver === currentUser)
-        ).map((msg, index) => (
-          <div
-            key={index}
-            className={`flex ${msg.sender === user.MobileNumber ? "justify-start" : "justify-start left-[25%]"} `}
-          >
-            <div className={`text-sm px-3 py-1 flex  rounded-xl max-w-[60%] ${
-              msg.sender === user.MobileNumber 
-                ? "bg-white text-gray-900 border border-gray-300"
-                : "bg-gray-700 text-white"
-            }`}>
-              {msg.text.match(/\.(jpeg|jpg|gif|png|webp)$/) ? (
-                <div className="relative max-w-[60%] max-h-[60%]">
-                  <Image
-                    onClick={() => handleImageClick(msg.text)}
-                    src={msg.text}
-                    alt="Sent content"
-                    fill
-                    className="rounded-lg object-cover active:opacity-75"
-                  />
-                </div>
-              ) : (
-                <p className="break-words max-w-[60%] flex items-center">{msg.text}</p>
-              )}
-            
+  {messages
+    .filter(
+      (msg) =>
+        (msg.sender === currentUser && msg.receiver === user.MobileNumber) ||
+        (msg.sender === user.MobileNumber && msg.receiver === currentUser)
+    )
+    .map((msg, index) => (
+      <div
+        key={index}
+        className={`flex ${
+          msg.sender === user.MobileNumber ? "justify-start" : "justify-end"
+        }`}
+      >
+        <div
+          className={`text-sm px-3 py-2 flex rounded-xl w-fit max-w-[75%] md:max-w-[60%] ${
+            msg.sender === user.MobileNumber
+              ? "bg-white text-gray-900 border border-gray-300"
+              : "bg-gray-700 text-white"
+          }`}
+        >
+          {msg.text.match(/\.(jpeg|jpg|gif|png|webp)$/) ? (
+            <div className="relative w-[200px] h-[200px] md:w-[250px] md:h-[250px]">
+              <Image
+                onClick={() => handleImageClick(msg.text)}
+                src={msg.text}
+                alt="Sent content"
+                layout="fill"
+                className="rounded-lg object-cover active:opacity-75"
+              />
             </div>
-          </div>
-        ))}
+          ) : (
+            <p className="break-words w-full">{msg.text}</p>
+          )}
+        </div>
       </div>
+    ))}
+</div>
+
 
       {/* Input Area */}
       <div className="p-2 h-[1vh] bg-white border-t border-gray-200">
