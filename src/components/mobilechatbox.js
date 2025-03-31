@@ -95,13 +95,15 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
 
     }
   };
-
+  const SOCKET_SERVER_URL = "https://ghostchat-eight.vercel.app";
   useEffect(() => {
     if (!socketRef.current) {
       fetch("/api/socket").then(() => {
-        const newSocket = io("https://ghostchat-eight.vercel.app/", {
+        const newSocket = io(SOCKET_SERVER_URL, {
           transports: ["websocket"],
           reconnection: true,
+          reconnectionAttempts: 5,
+          reconnectionDelay: 1000,
         });
 
         socketRef.current = newSocket;

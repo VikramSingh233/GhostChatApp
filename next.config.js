@@ -1,5 +1,3 @@
-const { protocol } = require("socket.io-client");
-
 const nextConfig = {
   reactStrictMode: false, // ✅ Disable Strict Mode to prevent double mounting
 
@@ -13,6 +11,32 @@ const nextConfig = {
     return config;
   },
 
+  async headers() {
+    return [
+      {
+        source: "/api/socket",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "https://ghostchat-eight.vercel.app", // ✅ Allow only your domain
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET, POST, OPTIONS",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "X-Requested-With, Content-Type",
+          },
+          {
+            key: "Access-Control-Allow-Credentials",
+            value: "true",
+          },
+        ],
+      },
+    ];
+  },
+
   images: {
     remotePatterns: [
       {
@@ -21,7 +45,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname:"www.flaticon.com",
+        hostname: "www.flaticon.com",
       },
       {
         protocol: "https",

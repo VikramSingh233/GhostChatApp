@@ -1,12 +1,14 @@
 import { Server } from "socket.io";
 import { NextResponse } from "next/server";
 
+const PORT = process.env.PORT || 3001;
 if (!global.io) {
   console.log("🔧 Initializing Socket.io...");
-  global.io = new Server(3001, {
+  global.io = new Server(PORT, {
     cors: { 
-      origin: ["https://ghostchat-eight.vercel.app/"], // Update with your domain
-      methods: ["GET", "POST"]
+      origin: "https://ghostchat-eight.vercel.app", // Allow only your domain
+      methods: ["GET", "POST"],
+      credentials: true,
     },
     allowEIO3: true
   });
