@@ -242,14 +242,14 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
     .map((msg, index) => (
       <div
         key={index}
-        className={`flex max-w-[55%] ${
+        className={`flex flex-wrap border-4 border-green-500 max-w-[57%] ${
           msg.sender === user.MobileNumber ? "justify-start" : "justify-end"
         }`}
       >
         <div
           className={`text-sm px-3 py-2 flex rounded-xl  ${
             msg.sender === user.MobileNumber
-              ? "bg-white text-gray-900 border border-gray-300 max-w-[70%] justify-start items-center flex-wrap flex-col"
+              ? "bg-white text-gray-900 border border-gray-300w-fit  max-w-[70%]  flex-wrap"
               : "bg-gray-700 text-white max-w-[70%] flex-wrap flex-row justify-start items-center "
           }`}
         >
@@ -260,11 +260,11 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
                 src={msg.text}
                 alt="Sent content"
                 layout="fill"
-                className="rounded-lg object-cover active:opacity-75"
+                className="rounded-lg object-cover max-w-full active:opacity-75"
               />
             </div>
           ) : (
-            <p className="whitespace-pre-wrap break-words ">{msg.text}</p>
+            <p className="whitespace-pre-wrap break-words break-all ">{msg.text}</p>
           )}
         </div>
       </div>
