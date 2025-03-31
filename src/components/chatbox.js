@@ -119,7 +119,7 @@ export default function ChatBox({ user, currentUser, handleClick ,conversationme
     }
   };
 
-  const SOCKET_SERVER_URL = "https://ghostchat-eight.vercel.app";
+  const SOCKET_SERVER_URL = "websocketserver-production-60c7.up.railway.app";
 
   useEffect(() => {
     if (!socketRef.current) {

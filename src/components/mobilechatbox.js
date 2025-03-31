@@ -95,7 +95,7 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
 
     }
   };
-  const SOCKET_SERVER_URL = "https://ghostchat-eight.vercel.app";
+  const SOCKET_SERVER_URL = "websocketserver-production-60c7.up.railway.app";
   useEffect(() => {
     if (!socketRef.current) {
       fetch("/api/socket").then(() => {

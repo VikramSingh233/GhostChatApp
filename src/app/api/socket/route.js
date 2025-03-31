@@ -1,7 +1,7 @@
 import { Server } from "socket.io";
 import { NextResponse } from "next/server";
 
-const PORT = process.env.PORT || 0;
+const PORT = process.env.PORT || 8080;
 if (!global.io) {
   console.log("🔧 Initializing Socket.io...");
   global.io = new Server(PORT, {
