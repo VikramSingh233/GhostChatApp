@@ -242,7 +242,7 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
     .map((msg, index) => (
       <div
         key={index}
-        className={`flex flex-wrap border-4 border-green-500 max-w-[57%] ${
+        className={`flex flex-wrap   max-w-[100%] ${
           msg.sender === user.MobileNumber ? "justify-start" : "justify-end"
         }`}
       >
