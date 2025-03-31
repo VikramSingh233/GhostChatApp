@@ -200,7 +200,7 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
       {/* Header */}
       {showmessagebox && <MessageBox message={messagebox} type="success" />}
       <div className="bg-gray-800 p-3 border-b  border-gray-700 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex w-[60%] items-center gap-2">
           <button
             onClick={handleClick}
             className="p-2 rounded-full hover:bg-gray-700 transition-colors"
@@ -242,15 +242,15 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
     .map((msg, index) => (
       <div
         key={index}
-        className={`flex max-w-[90%] ${
+        className={`flex max-w-[50%] ${
           msg.sender === user.MobileNumber ? "justify-start" : "justify-end"
         }`}
       >
         <div
           className={`text-sm px-3 py-2 flex rounded-xl  ${
             msg.sender === user.MobileNumber
-              ? "bg-white text-gray-900 border border-gray-300 max-w-[60%] md:max-w-[50%] md:w-fit"
-              : "bg-gray-700 text-white max-w-[60%] md:max-w-[50%] md:w-fit"
+              ? "bg-white text-gray-900 border border-gray-300 max-w-[60%] flex-wrap overflow-y-auto md:w-fit"
+              : "bg-gray-700 text-white max-w-[60%] flex-wrap overflow-y-auto md:w-fit"
           }`}
         >
           {msg.text.match(/\.(jpeg|jpg|gif|png|webp)$/) ? (
@@ -289,7 +289,7 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
             placeholder="Type a message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            className="flex-1 px-3 py-2 border w-3/4 border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
           />
 
