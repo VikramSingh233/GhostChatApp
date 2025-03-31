@@ -242,15 +242,15 @@ export default function ChatBoxMobile({ user, currentUser, handleClick, conversa
     .map((msg, index) => (
       <div
         key={index}
-        className={`flex max-w-[50%] ${
+        className={`flex max-w-[60%] ${
           msg.sender === user.MobileNumber ? "justify-start" : "justify-end"
         }`}
       >
         <div
           className={`text-sm px-3 py-2 flex rounded-xl  ${
             msg.sender === user.MobileNumber
-              ? "bg-white text-gray-900 border border-gray-300 max-w-[60%] flex-wrap overflow-y-auto md:w-fit"
-              : "bg-gray-700 text-white max-w-[60%] flex-wrap overflow-y-auto md:w-fit"
+              ? "bg-white text-gray-900 border border-gray-300 max-w-[70%] flex-wrap"
+              : "bg-gray-700 text-white max-w-[70%] flex-wrap "
           }`}
         >
           {msg.text.match(/\.(jpeg|jpg|gif|png|webp)$/) ? (
