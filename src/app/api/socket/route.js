@@ -5,7 +5,7 @@ if (!global.io) {
   console.log("🔧 Initializing Socket.io...");
   global.io = new Server(3001, {
     cors: { 
-      origin: ["http://localhost:3000"], // Update with your domain
+      origin: ["https://ghostchat-eight.vercel.app/"], // Update with your domain
       methods: ["GET", "POST"]
     },
     allowEIO3: true

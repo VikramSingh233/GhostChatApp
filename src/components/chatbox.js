@@ -124,7 +124,7 @@ export default function ChatBox({ user, currentUser, handleClick ,conversationme
   useEffect(() => {
     if (!socketRef.current) {
       fetch("/api/socket").then(() => {
-        const newSocket = io("http://localhost:3001", {
+        const newSocket = io("https://ghostchat-eight.vercel.app/", {
           transports: ["websocket"],
           reconnection: true,
         });
