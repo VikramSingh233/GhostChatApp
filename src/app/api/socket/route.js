@@ -3,12 +3,13 @@ import { NextResponse } from "next/server";
 
 if (!global.io) {
   console.log("🔧 Initializing Socket.io...");
-
   global.io = new Server(3001, {
-    cors: { origin: "*" },
-    allowEIO3: true, // Ensure compatibility with older clients
+    cors: { 
+      origin: ["http://localhost:3000"], // Update with your domain
+      methods: ["GET", "POST"]
+    },
+    allowEIO3: true
   });
-
   global.io.on("connection", (socket) => {
     console.log("🔗 A user connected:", socket.id);
 
@@ -17,8 +18,8 @@ if (!global.io) {
       global.io.emit("receiveMessage", messageData); // Broadcast to all clients
     });
 
-    socket.on("disconnect", () => {
-      console.log("❌ User disconnected:", socket.id);
+    socket.on("disconnect", (reason) => {
+      console.log("❌ User disconnected:", socket.id, "Reason:",reason);
     });
   });
 } else {

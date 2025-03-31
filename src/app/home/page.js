@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { Trash } from "lucide-react";
 import MessageBox from "@/components/messagebox";
 import { motion } from "framer-motion";
+import ChatBoxMobile from "@/components/mobilechatbox";
 
 export default function ChatApp() {
   const [addnumber, setAddnumber] = useState("");
@@ -258,7 +259,7 @@ useEffect(()=>{
       )}
 
       {/* Header */}
-      <div className="bg-slate-900 text-white px-6 py-4 shadow-lg flex justify-between items-center">
+      <div className={`bg-slate-900 ${isMobile && selecteduser ? "hidden":"block"} text-white px-6 py-4 shadow-lg flex justify-between items-center`}>
         <h1 className="text-xl font-semibold tracking-tight">ConvoNest</h1>
         <div className="relative flex gap-2">
         <svg
@@ -413,7 +414,7 @@ useEffect(()=>{
       )}
       <div className="flex flex-1 overflow-hidden">
         {/* Contacts Sidebar */}
-        <div className="w-full md:w-[300px] bg-white/90 border-r border-slate-300 flex flex-col">
+        <div className={`w-full md:w-[300px] ${isMobile && selecteduser ? "hidden" : "block"} bg-white/90 border-r border-slate-300 flex flex-col`}>
           <div className="p-4 border-b border-slate-100">
             <div className="flex gap-2">
               <input
@@ -433,20 +434,21 @@ useEffect(()=>{
           </div>
 
           {/* Contacts List */}
-          <div className="flex-1 overflow-y-auto">
+          <div className={`flex-1  overflow-y-auto`}>
             {users.map((user, index) => (
               <div
                 key={index}
                 onClick={() => {
                   if (isMobile) {
-                    router.push(`/user/${user.MobileNumber}`);
+                    // router.push(`/user/${user.MobileNumber}`);
+                    setSelectedUser(user);
                   } else {
                     setSelectedUser(user);
                   }
                 }}
                 className="flex items-center  p-2 hover:bg-slate-100 cursor-pointer transition-colors border-b border-slate-300"
               >
-                <div className="relative w-16 h-16 mr-3">
+                <div className="relative w-16 h-16 mr-3 ">
                   <Image
                     src={user.ProfilePicture}
                     alt={`${user.Name}'s profile`}
@@ -464,22 +466,33 @@ useEffect(()=>{
         </div>
 
         {/* Chat Area */}
-        <div className=" hidden flex-1 md:flex flex-col bg-white">
-          {selecteduser && curruser ? (
-            <ChatBox user={selecteduser} currentUser={curruser} conversationmessages={selectedUserMessages} handleClick={() => handleArrowLeftClick()} />
-          ) : (
-            <div className="flex-1 flex items-center justify-center p-8">
-              <div className="text-center text-slate-400">
-                <p className="text-lg">
-                  Select a conversation to start chatting
-                </p>
-                <p className="text-sm mt-2">
-                  Your secure messages will appear here
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
+        <div className={`flex-1 flex flex-col bg-white ${selecteduser && isMobile ? "" : "hidden md:flex"}`}>
+  {selecteduser && curruser ? (
+    isMobile ? (
+      <ChatBoxMobile
+        user={selecteduser}
+        currentUser={curruser}
+        conversationmessages={selectedUserMessages}
+        handleClick={() => setSelectedUser(null)} // Go back to contacts on mobile
+      />
+    ) : (
+      <ChatBox
+        user={selecteduser}
+        currentUser={curruser}
+        conversationmessages={selectedUserMessages}
+        handleClick={() => handleArrowLeftClick()}
+      />
+    )
+  ) : (
+    <div className="flex-1 flex items-center justify-center p-8">
+      <div className="text-center text-slate-400">
+        <p className="text-lg">Select a conversation to start chatting</p>
+        <p className="text-sm mt-2">Your secure messages will appear here</p>
+      </div>
+    </div>
+  )}
+</div>
+
       </div>
 
 
