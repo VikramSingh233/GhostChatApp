@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { MoreVertical, Phone, Ban, BarChart, Settings, Trash } from "lucide-react";
+import { MoreVertical, Phone, Ban, BarChart, Settings, Trash, UserPlus, User, PictureInPictureIcon, UserCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function UserPopupMenu({ onBlock, onPoll, onSettings, onDelete }) {
@@ -65,9 +65,9 @@ export default function UserPopupMenu({ onBlock, onPoll, onSettings, onDelete })
             </button>
             <button
               onClick={() => { onSettings(); setIsOpen(false); }}
-              className="flex items-center bg-gray-800 w-full px-4 py-2 text-sm text-white hover:bg-gray-600 rounded-b-lg"
+              className="flex items-center bg-gray-800 w-full px-4 py-2 text-[8px]  text-white hover:bg-gray-600 rounded-b-lg font-bold"
             >
-              <Settings className="w-5 h-5 mr-2" /> Settings
+              <UserCircle className="w-5 h-5 mr-2 " /> Download Profile Picture
             </button>
           </motion.div>
         )}

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import axios from "axios";
 import Popup from "@/components/popup";
 import ThreedotPopup from "@/components/threedotPopup";
@@ -28,6 +28,7 @@ export default function ChatApp() {
   const [notification, setNotification] = useState([]);
   const [messageBoxType, setMessageBoxType] = useState("");
   const [unseenCount, setUnseenCount] = useState(0);
+  const [selectedUserMessages, setSelectedUserMessages] = useState([]);
   const router = useRouter();
 
 
@@ -113,6 +114,30 @@ export default function ChatApp() {
 
     fetchSavedUsers();
   }, []);
+
+useEffect(()=>{
+  const getallmessage = async () => {
+    try {
+      const response = await axios.post("/api/getallmessage", {
+        user: selecteduser,
+        currentUser: curruser,
+      });
+     
+
+      const sortedMessages = response.data.messages.sort(
+        (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+      );
+      
+     
+      setSelectedUserMessages(sortedMessages);
+      
+    } catch (error) {
+      
+    }
+  }
+
+  getallmessage();
+},[selecteduser])
 
   const AddNewNumber = async (number) => {
     if (!number.trim()) {
@@ -396,11 +421,11 @@ export default function ChatApp() {
                 placeholder="Add contact number"
                 value={addnumber}
                 onChange={(e) => setAddnumber(e.target.value)}
-                className="w-full px-4 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full px-1 py-2 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               />
               <button
                 onClick={() => AddNewNumber(addnumber)}
-                className="px-0 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition-colors "
+                className="px-0 py-2 w-52 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition-colors "
               >
                 Add Contact
               </button>
@@ -441,7 +466,7 @@ export default function ChatApp() {
         {/* Chat Area */}
         <div className=" hidden flex-1 md:flex flex-col bg-white">
           {selecteduser && curruser ? (
-            <ChatBox user={selecteduser} currentUser={curruser} handleClick={() => handleArrowLeftClick()} />
+            <ChatBox user={selecteduser} currentUser={curruser} conversationmessages={selectedUserMessages} handleClick={() => handleArrowLeftClick()} />
           ) : (
             <div className="flex-1 flex items-center justify-center p-8">
               <div className="text-center text-slate-400">

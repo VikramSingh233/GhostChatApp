@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export const SettingOption = ({ onClose, onSave, user }) => {
 
-  
-  const [isImportant, setIsImportant] = useState(false);
 
   const handleSubmit = () => {
     onSave({ isImportant });
@@ -48,7 +46,7 @@ export const SettingOption = ({ onClose, onSave, user }) => {
           transition={{ duration: 0.2 }}
           className="bg-white rounded-lg p-6 w-96 shadow-xl"
         >
-          <h3 className="text-xl font-semibold mb-4">Settings</h3>
+          <h3 className="text-xl font-semibold mb-4">Download Profile Picture</h3>
 
           <div className="space-y-4 mb-6">
         
@@ -60,15 +58,6 @@ export const SettingOption = ({ onClose, onSave, user }) => {
               </button>
             </div>
 
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={isImportant}
-                onChange={(e) => setIsImportant(e.target.checked)}
-                className="w-4 h-4"
-              />
-              <span>Mark {user.Name} Important</span>
-            </div>
           </div>
 
           <div className="flex justify-end gap-3">

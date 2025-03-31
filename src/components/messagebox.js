@@ -34,7 +34,7 @@ const MessageBox = ({ message, type = "info", duration = 3000 }) => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
-                    className={`fixed top-4 left-[50%] transform -translate-x-1/2 px-4 py-2 rounded-lg shadow-md border ${typeStyles[type]} flex items-center gap-2`}
+                    className={`fixed top-4 left-[40%] transform -translate-x-1/2 px-4 py-2 rounded-lg shadow-md border ${typeStyles[type]} flex items-center gap-2`}
                 >
                     {icons[type]}
                     <span className="text-sm font-medium">{message}</span>
